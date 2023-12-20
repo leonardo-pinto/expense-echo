@@ -17,7 +17,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Object> handleBadRequestException(BadRequestException ex) {
         ApiErrorResponse apiErrorResponse = new ApiErrorResponse(BAD_REQUEST, ex);
-        ResponseEntity<Object> result = buildResponseEntity(apiErrorResponse);
         return buildResponseEntity(apiErrorResponse);
     }
 
