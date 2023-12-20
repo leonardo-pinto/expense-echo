@@ -2,8 +2,10 @@ package com.backend.expenseecho.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ApiErrorResponse {
@@ -13,6 +15,11 @@ public class ApiErrorResponse {
     private String message;
     private String debugMessage;
     private List<ApiSubError> subErrors;
+
+    public ApiErrorResponse(HttpStatus status) {
+        this.timestamp =  LocalDateTime.now();
+        this.status = status;
+    }
 
     public ApiErrorResponse(HttpStatus status, Throwable ex) {
         this.timestamp =  LocalDateTime.now();
@@ -49,15 +56,25 @@ public class ApiErrorResponse {
         return debugMessage;
     }
 
-    public void setDebugMessage(String debugMessage) {
-        this.debugMessage = debugMessage;
-    }
-
     public List<ApiSubError> getSubErrors() {
         return subErrors;
     }
 
-    public void setSubErrors(List<ApiSubError> subErrors) {
-        this.subErrors = subErrors;
+    private void addSubError(ApiSubError subError) {
+        if (subErrors == null) {
+            subErrors = new ArrayList<>();
+        }
+        subErrors.add(subError);
     }
+
+    private void addValidationError(FieldError fieldError) {
+        ApiSubError subError = new ApiValidationError(fieldError.getDefaultMessage());
+        this.addSubError(subError);
+    }
+
+    public void addValidationErrors(List<FieldError> fieldErrors) {
+        fieldErrors.forEach(this::addValidationError);
+    }
+
+
 }
