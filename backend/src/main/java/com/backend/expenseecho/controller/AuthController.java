@@ -41,17 +41,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
-        try {
             Authentication authentication = authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
             );
             UserInfoUserDetails userDetails = (UserInfoUserDetails) authentication.getPrincipal();
             String token = jwtService.generateToken(userDetails.getUsername(), userDetails.getId().toString());
             return new ResponseEntity<>(new AuthResponse(token), HttpStatus.OK);
-        } catch (BadCredentialsException ex) {
-            System.out.println("Bad credentials exception");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
     }
 
     @GetMapping("/test")
@@ -59,5 +54,4 @@ public class AuthController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication.getName();
     }
-
 }
