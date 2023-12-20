@@ -1,9 +1,9 @@
 package com.backend.expenseecho.model.dto;
 
-public class AuthResponseDto {
+public class AuthResponse {
     private String accessToken;
 
-    public AuthResponseDto(String accessToken) {
+    public AuthResponse(String accessToken) {
         this.accessToken = accessToken;
     }
 

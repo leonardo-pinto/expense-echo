@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class RegisterRequestDto {
+public class RegisterRequest {
 
     @NotBlank(message = "First name is required")
     private String firstName;
@@ -18,7 +18,7 @@ public class RegisterRequestDto {
     @Size(min = 8, message = "Password should contain at least eight characters")
     private String password;
 
-    public RegisterRequestDto(String firstName, String lastName, String email, String password) {
+    public RegisterRequest(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
