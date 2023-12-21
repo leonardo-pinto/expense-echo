@@ -12,11 +12,13 @@ import java.util.Optional;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
-
-    @Autowired
     private UserInfoRepository userRepository;
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public UserInfoServiceImpl(UserInfoRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserInfo register(UserInfo user) {
@@ -24,7 +26,8 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new BadRequestException("Email already registered.");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        UserInfo createdUser = userRepository.save(user);
+        return createdUser;
     }
 
     @Override
