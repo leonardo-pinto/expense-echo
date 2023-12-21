@@ -26,8 +26,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             throw new BadRequestException("Email already registered.");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        UserInfo createdUser = userRepository.save(user);
-        return createdUser;
+        return userRepository.save(user);
     }
 
     @Override
