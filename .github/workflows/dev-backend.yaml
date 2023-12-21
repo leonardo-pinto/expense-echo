@@ -1,4 +1,4 @@
-name: Dev Branch
+name: Backend Development
 
 on:
   push:
