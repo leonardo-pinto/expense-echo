@@ -3,34 +3,31 @@ package com.backend.expenseecho.service.impl;
 import com.backend.expenseecho.exception.BadRequestException;
 import com.backend.expenseecho.model.entities.UserInfo;
 import com.backend.expenseecho.repository.UserInfoRepository;
-import com.backend.expenseecho.service.UserInfoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
 
-
+@ExtendWith(MockitoExtension.class)
 public class UserInfoServiceTest {
-
-    private UserInfoService sut;
+    @InjectMocks
+    private UserInfoServiceImpl sut;
+    @Mock
     private UserInfoRepository mockUserInfoRepository;
+    @Mock
     private PasswordEncoder mockPasswordEncoder;
-
-    @BeforeEach
-    public void setUp() {
-        mockUserInfoRepository = mock(UserInfoRepository.class);
-        mockPasswordEncoder = mock(PasswordEncoder.class);
-        sut = new UserInfoServiceImpl(mockUserInfoRepository, mockPasswordEncoder);
-    }
 
     @Nested
     @DisplayName("emailAlreadyExists")
@@ -90,6 +87,5 @@ public class UserInfoServiceTest {
             Exception exception = assertThrows(BadRequestException.class, () -> sut.register(mockUser));
             assertEquals("Email already registered.", exception.getMessage());
         }
-
     }
 }
