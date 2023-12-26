@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.UNAUTHORIZED;
+import static org.springframework.http.HttpStatus.*;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -28,6 +27,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BadCredentialsException.class)
     protected ResponseEntity<Object> handleUsernameNotFoundException(BadCredentialsException ex) {
+        ApiErrorResponse apiErrorResponse = new ApiErrorResponse(UNAUTHORIZED, ex);
+        return buildResponseEntity(apiErrorResponse);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    protected ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        ApiErrorResponse apiErrorResponse = new ApiErrorResponse(NOT_FOUND, ex);
+        return buildResponseEntity(apiErrorResponse);
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    protected ResponseEntity<Object> handleUnauthorizedException(UnauthorizedException ex) {
         ApiErrorResponse apiErrorResponse = new ApiErrorResponse(UNAUTHORIZED, ex);
         return buildResponseEntity(apiErrorResponse);
     }
