@@ -2,9 +2,11 @@ package com.backend.expenseecho.model.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
-public class UserInfo {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,9 +21,12 @@ public class UserInfo {
     private String password;
     private String roles;
 
-    public UserInfo(){};
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Profile> profiles;
 
-    public UserInfo(String firstName, String lastName, String email, String password) {
+    public User(){};
+
+    public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
