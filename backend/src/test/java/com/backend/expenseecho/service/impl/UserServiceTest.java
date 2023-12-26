@@ -1,7 +1,7 @@
 package com.backend.expenseecho.service.impl;
 
 import com.backend.expenseecho.exception.BadRequestException;
-import com.backend.expenseecho.model.entities.UserInfo;
+import com.backend.expenseecho.model.entities.User;
 import com.backend.expenseecho.repository.UserInfoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,9 +21,9 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
 
 @ExtendWith(MockitoExtension.class)
-public class UserInfoServiceTest {
+public class UserServiceTest {
     @InjectMocks
-    private UserInfoServiceImpl sut;
+    private UserServiceImpl sut;
     @Mock
     private UserInfoRepository mockUserInfoRepository;
     @Mock
@@ -41,7 +41,7 @@ public class UserInfoServiceTest {
 
         @Test
         void emailAlreadyExists_whenEmailExist_returnsTrue(){
-            UserInfo user = new UserInfo("John", "Doe", mockEmail, "password");
+            User user = new User("John", "Doe", mockEmail, "password");
             when(mockUserInfoRepository.findByEmail(mockEmail)).thenReturn(Optional.of(user));
 
             boolean result = sut.emailAlreadyExists(mockEmail);
@@ -59,23 +59,23 @@ public class UserInfoServiceTest {
     @Nested
     @DisplayName("register")
     class registerTests {
-        private UserInfo mockUser;
+        private User mockUser;
 
         @BeforeEach
         public void setUp() {
-            mockUser = new UserInfo("John", "Doe", "email@mail.com", "password");
+            mockUser = new User("John", "Doe", "email@mail.com", "password");
         }
 
         @Test
         void register_whenEmailDoesNotExist_returnsUser(){
-            UserInfo mockCreatedUser = new UserInfo("John", "Doe", "email@mail.com", "password");
+            User mockCreatedUser = new User("John", "Doe", "email@mail.com", "password");
             mockCreatedUser.setId(1);
 
             when(mockUserInfoRepository.findByEmail(anyString())).thenReturn(Optional.empty());
             when(mockPasswordEncoder.encode(anyString())).thenReturn("hashedPassword");
-            when(mockUserInfoRepository.save(any(UserInfo.class))).thenReturn(mockCreatedUser);
+            when(mockUserInfoRepository.save(any(User.class))).thenReturn(mockCreatedUser);
 
-            UserInfo result = sut.register(mockUser);
+            User result = sut.register(mockUser);
             assertEquals(result.getId(), mockCreatedUser.getId());
             assertEquals(result.getEmail(), mockCreatedUser.getEmail());
         }

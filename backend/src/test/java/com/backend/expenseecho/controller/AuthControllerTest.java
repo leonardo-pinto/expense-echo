@@ -3,10 +3,10 @@ package com.backend.expenseecho.controller;
 import com.backend.expenseecho.model.dto.AuthResponse;
 import com.backend.expenseecho.model.dto.LoginRequest;
 import com.backend.expenseecho.model.dto.RegisterRequest;
-import com.backend.expenseecho.model.entities.UserInfo;
+import com.backend.expenseecho.model.entities.User;
 import com.backend.expenseecho.security.JwtTokenProvider;
 import com.backend.expenseecho.security.UserInfoUserDetails;
-import com.backend.expenseecho.service.UserInfoService;
+import com.backend.expenseecho.service.UserService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class AuthControllerTest {
     @Mock
-    private UserInfoService mockUserInfoService;
+    private UserService mockUserInfoService;
     @Mock
     private JwtTokenProvider mockJwtTokenProvider;
     @Mock
@@ -56,10 +56,10 @@ public class AuthControllerTest {
 
         @Test
         public void register_returnsAuthResponse() throws Exception {
-            UserInfo mockCreatedUser = new UserInfo(mockRegisterRequest.getFirstName(), mockRegisterRequest.getLastName(), mockRegisterRequest.getEmail(), mockRegisterRequest.getPassword());
+            User mockCreatedUser = new User(mockRegisterRequest.getFirstName(), mockRegisterRequest.getLastName(), mockRegisterRequest.getEmail(), mockRegisterRequest.getPassword());
             mockCreatedUser.setId(1);
 
-            when(mockUserInfoService.register(any(UserInfo.class))).thenReturn(mockCreatedUser);
+            when(mockUserInfoService.register(any(User.class))).thenReturn(mockCreatedUser);
             when(mockJwtTokenProvider.generateToken(anyString(), anyString())).thenReturn(mockAccessToken);
 
             ResponseEntity<AuthResponse> response = sut.register(mockRegisterRequest);
@@ -84,7 +84,7 @@ public class AuthControllerTest {
             mockLoginRequest = new LoginRequest("email@mail.com", "secretPassword");
             mockAccessToken = "mockAccessToken";
             mockAuthentication = mock(Authentication.class);
-            UserInfo mockUser = new UserInfo("John", "Doe", "email@mail.com", "password");
+            User mockUser = new User("John", "Doe", "email@mail.com", "password");
             mockUser.setId(1);
             mockUserInfoUserDetails = new UserInfoUserDetails(mockUser);
         }

@@ -1,6 +1,6 @@
 package com.backend.expenseecho.security;
 
-import com.backend.expenseecho.model.entities.UserInfo;
+import com.backend.expenseecho.model.entities.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,11 +16,11 @@ public class UserInfoUserDetails implements UserDetails {
     private String password;
     private List<GrantedAuthority> authorities;
 
-    public UserInfoUserDetails(UserInfo userInfo) {
-        id = userInfo.getId();
-        name = userInfo.getEmail();
-        password = userInfo.getPassword();
-        authorities = Arrays.stream(userInfo.getRoles().split(","))
+    public UserInfoUserDetails(User user) {
+        id = user.getId();
+        name = user.getEmail();
+        password = user.getPassword();
+        authorities = Arrays.stream(user.getRoles().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
