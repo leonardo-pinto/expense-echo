@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProfileService {
-    Profile create(CreateProfileRequest request, String userId);
+    ProfileResponse create(CreateProfileRequest request, String userId);
     List<ProfileResponse> getAllByUserId(String userId);
     ProfileResponse updateProfile(String id, UpdateProfileRequest request, String userId);
 }

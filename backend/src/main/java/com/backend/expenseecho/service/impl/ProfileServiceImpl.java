@@ -9,8 +9,9 @@ import com.backend.expenseecho.model.dto.UpdateProfileRequest;
 import com.backend.expenseecho.model.entities.Profile;
 import com.backend.expenseecho.model.entities.User;
 import com.backend.expenseecho.repository.ProfileRepository;
-import com.backend.expenseecho.repository.UserInfoRepository;
+import com.backend.expenseecho.repository.UserRepository;
 import com.backend.expenseecho.service.ProfileService;
+import com.backend.expenseecho.utils.mapper.ProfileMapper;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -20,25 +21,27 @@ import java.util.List;
 public class ProfileServiceImpl implements ProfileService {
 
     private ProfileRepository profileRepository;
-    private UserInfoRepository userRepository;
+    private UserRepository userRepository;
 
-    public ProfileServiceImpl(ProfileRepository profileRepository, UserInfoRepository userRepository) {
+    public ProfileServiceImpl(ProfileRepository profileRepository, UserRepository userRepository) {
 
         this.profileRepository = profileRepository;
         this.userRepository = userRepository;
     }
 
     @Override
-    public Profile create(CreateProfileRequest request, String userId) {
-        User user = userRepository.findById(Integer.parseInt(userId)).orElseThrow(() -> new UsernameNotFoundException("User account not found"));
-        Profile profile = new Profile(request.getName(), request.getAvatar(), user);
+    public ProfileResponse create(CreateProfileRequest request, String userId) {
+        User user = userRepository
+                .findById(Integer.parseInt(userId))
+                .orElseThrow(() -> new UsernameNotFoundException("User account not found."));
 
+        Profile profile = ProfileMapper.INSTANCE.convert(request);
+        profile.setUser(user);
         if (profileNameAlreadyExists(request.getName(), profile.getUser().getId())) {
             throw new BadRequestException("Profile name already exists.");
         }
-
-        return profileRepository.save(profile);
-
+        Profile createdProfile = profileRepository.save(profile);
+        return new ProfileResponse(createdProfile);
     }
 
     @Override
@@ -50,7 +53,9 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public ProfileResponse updateProfile(String id, UpdateProfileRequest request, String userId) {
-        Profile profile = profileRepository.findById(Integer.parseInt(id)).orElseThrow(() -> new ResourceNotFoundException("Profile not found."));
+        Profile profile = profileRepository
+                .findById(Integer.parseInt(id))
+                .orElseThrow(() -> new ResourceNotFoundException("Profile not found."));
 
         if (!profile.getUser().getId().toString().equals(userId)) {
             throw new UnauthorizedException("User is not authorized to perform this action.");
