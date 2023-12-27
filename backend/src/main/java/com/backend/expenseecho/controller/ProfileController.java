@@ -4,7 +4,6 @@ package com.backend.expenseecho.controller;
 import com.backend.expenseecho.model.dto.CreateProfileRequest;
 import com.backend.expenseecho.model.dto.ProfileResponse;
 import com.backend.expenseecho.model.dto.UpdateProfileRequest;
-import com.backend.expenseecho.model.entities.Profile;
 import com.backend.expenseecho.service.ProfileService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/profiles")
@@ -23,13 +24,21 @@ public class ProfileController {
         this.profileService = profileService;
     }
 
+    @GetMapping("/user/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ResponseEntity<List<ProfileResponse>> getAllByUserId() {
+        String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
+        List<ProfileResponse> response = profileService.getAllByUserId(userId);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ProfileResponse> createProfile(@Valid @RequestBody CreateProfileRequest request) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
-        Profile createdProfile = profileService.create(request, userId);
-
-        return new ResponseEntity<>(new ProfileResponse(createdProfile),  HttpStatus.CREATED);
+        ProfileResponse response = profileService.create(request, userId);
+        return new ResponseEntity<>(response,  HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
