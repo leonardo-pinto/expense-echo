@@ -3,18 +3,18 @@ package com.backend.expenseecho.model.dto;
 import com.backend.expenseecho.model.entities.Profile;
 
 public class ProfileResponse {
-    private Integer profileId;
+    private Integer id;
     private String name;
     private String avatar;
 
     public ProfileResponse(Profile profile) {
-        this.profileId = profile.getId();
+        this.id = profile.getId();
         this.name = profile.getName();
         this.avatar = profile.getAvatar();
     }
 
-    public Integer getProfileId() {
-        return profileId;
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {
