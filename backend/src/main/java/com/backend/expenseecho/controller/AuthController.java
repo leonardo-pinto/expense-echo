@@ -1,29 +1,29 @@
 package com.backend.expenseecho.controller;
 
+import com.backend.expenseecho.model.dto.RegisterUserResponse;
 import com.backend.expenseecho.security.UserInfoUserDetails;
 import com.backend.expenseecho.model.entities.User;
 import com.backend.expenseecho.model.dto.AuthResponse;
 import com.backend.expenseecho.model.dto.LoginRequest;
 import com.backend.expenseecho.model.dto.RegisterRequest;
 import com.backend.expenseecho.security.JwtTokenProvider;
-import com.backend.expenseecho.service.UserService;
+import com.backend.expenseecho.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    private final UserService userInfoService;
+    private final AuthService userInfoService;
     private final JwtTokenProvider jwtService;
     private final AuthenticationManager authManager;
 
-    public AuthController(UserService userInfoService, JwtTokenProvider jwtService, AuthenticationManager authManager) {
+    public AuthController(AuthService userInfoService, JwtTokenProvider jwtService, AuthenticationManager authManager) {
         this.userInfoService = userInfoService;
         this.jwtService = jwtService;
         this.authManager = authManager;
@@ -31,10 +31,8 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
-        // TODO: map dto to entity
-        User user = new User(request.getFirstName(), request.getLastName(), request.getEmail(), request.getPassword());
-        User createdUser = userInfoService.register(user);
-        String token = jwtService.generateToken(createdUser.getEmail(), createdUser.getId().toString());
+        RegisterUserResponse registerUser = userInfoService.register(request);
+        String token = jwtService.generateToken(registerUser.getEmail(), registerUser.getId().toString());
         return new ResponseEntity<>(new AuthResponse(token), HttpStatus.CREATED);
     }
 
