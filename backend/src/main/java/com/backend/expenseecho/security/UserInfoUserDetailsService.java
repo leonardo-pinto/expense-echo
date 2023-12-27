@@ -2,7 +2,7 @@ package com.backend.expenseecho.security;
 
 
 import com.backend.expenseecho.model.entities.User;
-import com.backend.expenseecho.repository.UserInfoRepository;
+import com.backend.expenseecho.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +15,7 @@ import java.util.Optional;
 public class UserInfoUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserInfoRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

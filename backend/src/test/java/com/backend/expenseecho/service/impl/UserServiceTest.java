@@ -2,7 +2,7 @@ package com.backend.expenseecho.service.impl;
 
 import com.backend.expenseecho.exception.BadRequestException;
 import com.backend.expenseecho.model.entities.User;
-import com.backend.expenseecho.repository.UserInfoRepository;
+import com.backend.expenseecho.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -25,7 +25,7 @@ public class UserServiceTest {
     @InjectMocks
     private UserServiceImpl sut;
     @Mock
-    private UserInfoRepository mockUserInfoRepository;
+    private UserRepository mockUserRepository;
     @Mock
     private PasswordEncoder mockPasswordEncoder;
 
@@ -42,7 +42,7 @@ public class UserServiceTest {
         @Test
         void emailAlreadyExists_whenEmailExist_returnsTrue(){
             User user = new User("John", "Doe", mockEmail, "password");
-            when(mockUserInfoRepository.findByEmail(mockEmail)).thenReturn(Optional.of(user));
+            when(mockUserRepository.findByEmail(mockEmail)).thenReturn(Optional.of(user));
 
             boolean result = sut.emailAlreadyExists(mockEmail);
             assertTrue(result);
@@ -50,7 +50,7 @@ public class UserServiceTest {
 
         @Test
         void emailAlreadyExists_whenEmailDoesNotExist_returnsTrue(){
-            when(mockUserInfoRepository.findByEmail(mockEmail)).thenReturn(Optional.empty());
+            when(mockUserRepository.findByEmail(mockEmail)).thenReturn(Optional.empty());
             boolean result = sut.emailAlreadyExists(mockEmail);
             assertFalse(result);
         }
@@ -71,9 +71,9 @@ public class UserServiceTest {
             User mockCreatedUser = new User("John", "Doe", "email@mail.com", "password");
             mockCreatedUser.setId(1);
 
-            when(mockUserInfoRepository.findByEmail(anyString())).thenReturn(Optional.empty());
+            when(mockUserRepository.findByEmail(anyString())).thenReturn(Optional.empty());
             when(mockPasswordEncoder.encode(anyString())).thenReturn("hashedPassword");
-            when(mockUserInfoRepository.save(any(User.class))).thenReturn(mockCreatedUser);
+            when(mockUserRepository.save(any(User.class))).thenReturn(mockCreatedUser);
 
             User result = sut.register(mockUser);
             assertEquals(result.getId(), mockCreatedUser.getId());
@@ -82,7 +82,7 @@ public class UserServiceTest {
 
         @Test
         void register_whenEmailExist_throwsException(){
-            when(mockUserInfoRepository.findByEmail(anyString())).thenReturn(Optional.of(mockUser));
+            when(mockUserRepository.findByEmail(anyString())).thenReturn(Optional.of(mockUser));
 
             Exception exception = assertThrows(BadRequestException.class, () -> sut.register(mockUser));
             assertEquals("Email already registered.", exception.getMessage());

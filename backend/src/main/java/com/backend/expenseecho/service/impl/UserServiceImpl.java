@@ -2,7 +2,7 @@ package com.backend.expenseecho.service.impl;
 
 import com.backend.expenseecho.exception.BadRequestException;
 import com.backend.expenseecho.model.entities.User;
-import com.backend.expenseecho.repository.UserInfoRepository;
+import com.backend.expenseecho.repository.UserRepository;
 import com.backend.expenseecho.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,10 +11,10 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private UserInfoRepository userRepository;
+    private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserInfoRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
