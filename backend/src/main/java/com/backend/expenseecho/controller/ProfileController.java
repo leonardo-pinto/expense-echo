@@ -24,7 +24,7 @@ public class ProfileController {
         this.profileService = profileService;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user")
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<ProfileResponse>> getAllByUserId() {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
