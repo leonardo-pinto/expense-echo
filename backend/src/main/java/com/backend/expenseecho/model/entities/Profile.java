@@ -25,6 +25,13 @@ public class Profile {
         this.avatar = avatar;
     }
 
+    public Profile(String name, String avatar, User user, int id) {
+        this.user = user;
+        this.name = name;
+        this.avatar = avatar;
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
