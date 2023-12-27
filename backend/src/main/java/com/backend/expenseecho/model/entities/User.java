@@ -24,7 +24,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Profile> profiles;
 
-    public User(){};
+    public User(){
+        this.roles = "ROLE_USER";
+    };
 
     public User(String firstName, String lastName, String email, String password) {
         this.firstName = firstName;
