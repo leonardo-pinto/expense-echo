@@ -3,10 +3,11 @@ package com.backend.expenseecho.controller;
 import com.backend.expenseecho.model.dto.AuthResponse;
 import com.backend.expenseecho.model.dto.LoginRequest;
 import com.backend.expenseecho.model.dto.RegisterRequest;
+import com.backend.expenseecho.model.dto.RegisterUserResponse;
 import com.backend.expenseecho.model.entities.User;
 import com.backend.expenseecho.security.JwtTokenProvider;
 import com.backend.expenseecho.security.UserInfoUserDetails;
-import com.backend.expenseecho.service.UserService;
+import com.backend.expenseecho.service.AuthService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,7 +33,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class AuthControllerTest {
     @Mock
-    private UserService mockUserInfoService;
+    private AuthService mockAuthService;
     @Mock
     private JwtTokenProvider mockJwtTokenProvider;
     @Mock
@@ -56,10 +57,9 @@ public class AuthControllerTest {
 
         @Test
         public void register_returnsAuthResponse() throws Exception {
-            User mockCreatedUser = new User(mockRegisterRequest.getFirstName(), mockRegisterRequest.getLastName(), mockRegisterRequest.getEmail(), mockRegisterRequest.getPassword());
-            mockCreatedUser.setId(1);
+            RegisterUserResponse mockRegisterUserResponse = new RegisterUserResponse(1, mockRegisterRequest.getEmail());
 
-            when(mockUserInfoService.register(any(User.class))).thenReturn(mockCreatedUser);
+            when(mockAuthService.register(any(RegisterRequest.class))).thenReturn(mockRegisterUserResponse);
             when(mockJwtTokenProvider.generateToken(anyString(), anyString())).thenReturn(mockAccessToken);
 
             ResponseEntity<AuthResponse> response = sut.register(mockRegisterRequest);

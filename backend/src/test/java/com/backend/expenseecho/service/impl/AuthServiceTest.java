@@ -1,6 +1,8 @@
 package com.backend.expenseecho.service.impl;
 
 import com.backend.expenseecho.exception.BadRequestException;
+import com.backend.expenseecho.model.dto.RegisterRequest;
+import com.backend.expenseecho.model.dto.RegisterUserResponse;
 import com.backend.expenseecho.model.entities.User;
 import com.backend.expenseecho.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,9 +23,9 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.anyString;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+public class AuthServiceTest {
     @InjectMocks
-    private UserServiceImpl sut;
+    private AuthServiceImpl sut;
     @Mock
     private UserRepository mockUserRepository;
     @Mock
@@ -59,32 +61,32 @@ public class UserServiceTest {
     @Nested
     @DisplayName("register")
     class registerTests {
+        private RegisterRequest mockRegisterRequest;
         private User mockUser;
 
         @BeforeEach
         public void setUp() {
+            mockRegisterRequest = new RegisterRequest("John", "Doe", "email@mail.com", "password");
             mockUser = new User("John", "Doe", "email@mail.com", "password");
+            mockUser.setId(1);
         }
 
         @Test
-        void register_whenEmailDoesNotExist_returnsUser(){
-            User mockCreatedUser = new User("John", "Doe", "email@mail.com", "password");
-            mockCreatedUser.setId(1);
-
+        void register_whenEmailDoesNotExist_returnsRegisterUserResponse(){
             when(mockUserRepository.findByEmail(anyString())).thenReturn(Optional.empty());
             when(mockPasswordEncoder.encode(anyString())).thenReturn("hashedPassword");
-            when(mockUserRepository.save(any(User.class))).thenReturn(mockCreatedUser);
+            when(mockUserRepository.save(any(User.class))).thenReturn(mockUser);
 
-            User result = sut.register(mockUser);
-            assertEquals(result.getId(), mockCreatedUser.getId());
-            assertEquals(result.getEmail(), mockCreatedUser.getEmail());
+            RegisterUserResponse result = sut.register(mockRegisterRequest);
+            assertEquals(result.getId(), mockUser.getId());
+            assertEquals(result.getEmail(), mockUser.getEmail());
         }
 
         @Test
         void register_whenEmailExist_throwsException(){
             when(mockUserRepository.findByEmail(anyString())).thenReturn(Optional.of(mockUser));
 
-            Exception exception = assertThrows(BadRequestException.class, () -> sut.register(mockUser));
+            Exception exception = assertThrows(BadRequestException.class, () -> sut.register(mockRegisterRequest));
             assertEquals("Email already registered.", exception.getMessage());
         }
     }
