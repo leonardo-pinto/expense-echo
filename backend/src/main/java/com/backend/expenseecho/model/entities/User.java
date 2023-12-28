@@ -24,6 +24,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Profile> profiles;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Budget> budgets;
+
     public User(){
         this.roles = "ROLE_USER";
     };
