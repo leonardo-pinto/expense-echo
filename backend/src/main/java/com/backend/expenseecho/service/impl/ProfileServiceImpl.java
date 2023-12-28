@@ -24,7 +24,6 @@ public class ProfileServiceImpl implements ProfileService {
     private UserRepository userRepository;
 
     public ProfileServiceImpl(ProfileRepository profileRepository, UserRepository userRepository) {
-
         this.profileRepository = profileRepository;
         this.userRepository = userRepository;
     }
@@ -47,7 +46,6 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public List<ProfileResponse> getAllByUserId(String userId) {
         List<Profile> profiles = profileRepository.findByUserId(Integer.parseInt(userId));
-
         return profiles.stream().map(ProfileResponse::new).toList();
     }
 
