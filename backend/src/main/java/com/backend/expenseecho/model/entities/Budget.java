@@ -23,6 +23,14 @@ public class Budget {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt = new Date();
 
+    public Budget() {}
+
+    public Budget(Integer id, String name, User user) {
+        this.id = id;
+        this.name = name;
+        this.user = user;
+    }
+
     public Integer getId() {
         return id;
     }
