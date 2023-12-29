@@ -57,7 +57,7 @@ public class BudgetServiceImpl implements BudgetService {
                 .orElseThrow(() -> new ResourceNotFoundException("Budget not found."));
 
         if (budgetNameAlreadyExists(request.getName(), Integer.parseInt(userId))) {
-            throw new BadRequestException("Profile name already exists.");
+            throw new BadRequestException("Budget name already exists.");
         }
 
         if (!budget.getUser().getId().toString().equals(userId)) {
@@ -81,8 +81,7 @@ public class BudgetServiceImpl implements BudgetService {
         budgetRepository.delete(budget);
     }
 
-    public Boolean budgetNameAlreadyExists(String budgetName, int userId) {
+    private Boolean budgetNameAlreadyExists(String budgetName, int userId) {
         return budgetRepository.findByNameAndUserId(budgetName, userId).isPresent();
     }
-
 }
