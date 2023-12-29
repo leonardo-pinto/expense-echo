@@ -23,7 +23,7 @@ public class BudgetController {
         this.budgetService = budgetService;
     }
 
-    @GetMapping("/user")
+    @GetMapping()
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<BudgetResponse>> getAllByUserId() {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
