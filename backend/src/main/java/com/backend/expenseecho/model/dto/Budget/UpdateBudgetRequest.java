@@ -1,15 +1,14 @@
-package com.backend.expenseecho.model.dto;
+package com.backend.expenseecho.model.dto.Budget;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class CreateBudgetRequest {
-
+public class UpdateBudgetRequest {
     @NotBlank(message = "Budget name is required")
     private String name;
 
-    public CreateBudgetRequest() {}
+    public UpdateBudgetRequest() {};
 
-    public CreateBudgetRequest(String name) {
+    public UpdateBudgetRequest(String name) {
         this.name = name;
     }
 
