@@ -1,6 +1,6 @@
 package com.backend.expenseecho.exception;
 
-import com.backend.expenseecho.model.dto.ApiErrorResponse;
+import com.backend.expenseecho.model.dto.Error.ApiErrorResponse;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
