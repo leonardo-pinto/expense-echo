@@ -2,6 +2,8 @@ package com.backend.expenseecho.model.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -17,6 +19,9 @@ public class Category {
 
     @Column(name = "is_default")
     private Boolean isDefault;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Transaction> transactions;
 
     public Category() {};
 

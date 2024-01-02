@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "budgets")
@@ -22,6 +23,9 @@ public class Budget {
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt = new Date();
+
+    @OneToMany(mappedBy = "budget", cascade = CascadeType.ALL)
+    private List<Transaction> transactions;
 
     public Budget() {}
 

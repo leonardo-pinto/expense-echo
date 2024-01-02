@@ -2,6 +2,8 @@ package com.backend.expenseecho.model.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "profiles")
 public class Profile {
@@ -15,6 +17,9 @@ public class Profile {
 
     private String name;
     private String avatar;
+
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
+    private List<Transaction> transactions;
 
     public Profile() {
     }
