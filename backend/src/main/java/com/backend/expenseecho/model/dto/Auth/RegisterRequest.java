@@ -1,4 +1,4 @@
-package com.backend.expenseecho.model.dto;
+package com.backend.expenseecho.model.dto.Auth;
 
 
 import jakarta.validation.constraints.Email;

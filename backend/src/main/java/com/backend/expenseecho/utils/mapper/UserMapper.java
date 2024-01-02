@@ -1,7 +1,7 @@
 package com.backend.expenseecho.utils.mapper;
 
-import com.backend.expenseecho.model.dto.RegisterRequest;
-import com.backend.expenseecho.model.dto.RegisterUserResponse;
+import com.backend.expenseecho.model.dto.Auth.RegisterRequest;
+import com.backend.expenseecho.model.dto.Auth.RegisterUserResponse;
 import com.backend.expenseecho.model.entities.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

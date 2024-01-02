@@ -1,6 +1,4 @@
-package com.backend.expenseecho.model.dto;
-
-import jakarta.persistence.Column;
+package com.backend.expenseecho.model.dto.Auth;
 
 public class RegisterUserResponse {
     private Integer id;
