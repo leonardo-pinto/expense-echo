@@ -1,4 +1,4 @@
-package com.backend.expenseecho.model.dto;
+package com.backend.expenseecho.model.dto.Auth;
 
 public class AuthResponse {
     private String accessToken;

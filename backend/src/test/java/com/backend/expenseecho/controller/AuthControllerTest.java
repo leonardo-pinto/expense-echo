@@ -1,9 +1,9 @@
 package com.backend.expenseecho.controller;
 
-import com.backend.expenseecho.model.dto.AuthResponse;
-import com.backend.expenseecho.model.dto.LoginRequest;
-import com.backend.expenseecho.model.dto.RegisterRequest;
-import com.backend.expenseecho.model.dto.RegisterUserResponse;
+import com.backend.expenseecho.model.dto.Auth.AuthResponse;
+import com.backend.expenseecho.model.dto.Auth.LoginRequest;
+import com.backend.expenseecho.model.dto.Auth.RegisterRequest;
+import com.backend.expenseecho.model.dto.Auth.RegisterUserResponse;
 import com.backend.expenseecho.model.entities.User;
 import com.backend.expenseecho.security.JwtTokenProvider;
 import com.backend.expenseecho.security.UserInfoUserDetails;

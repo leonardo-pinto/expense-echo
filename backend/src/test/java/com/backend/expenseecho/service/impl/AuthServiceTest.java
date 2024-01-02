@@ -1,8 +1,8 @@
 package com.backend.expenseecho.service.impl;
 
 import com.backend.expenseecho.exception.BadRequestException;
-import com.backend.expenseecho.model.dto.RegisterRequest;
-import com.backend.expenseecho.model.dto.RegisterUserResponse;
+import com.backend.expenseecho.model.dto.Auth.RegisterRequest;
+import com.backend.expenseecho.model.dto.Auth.RegisterUserResponse;
 import com.backend.expenseecho.model.entities.User;
 import com.backend.expenseecho.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
