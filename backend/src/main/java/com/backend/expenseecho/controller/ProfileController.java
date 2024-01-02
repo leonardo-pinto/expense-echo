@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequestMapping("/profiles")
 public class ProfileController {
 
@@ -25,7 +26,6 @@ public class ProfileController {
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<ProfileResponse>> getAllByUserId() {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         List<ProfileResponse> response = profileService.getAllByUserId(userId);
@@ -34,7 +34,6 @@ public class ProfileController {
 
 
     @PostMapping()
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ProfileResponse> createProfile(@Valid @RequestBody CreateProfileRequest request) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         ProfileResponse response = profileService.create(request, userId);
@@ -42,7 +41,6 @@ public class ProfileController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<ProfileResponse> updateProfile(@PathVariable(name = "id") String id, @Valid @RequestBody UpdateProfileRequest request) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         ProfileResponse response = profileService.updateProfile(id, request, userId);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequestMapping("/budgets")
 public class BudgetController {
     private final BudgetService budgetService;
@@ -24,7 +25,6 @@ public class BudgetController {
     }
 
     @GetMapping()
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<BudgetResponse>> getAllByUserId() {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         List<BudgetResponse> response = budgetService.getAllByUserId(userId);
@@ -32,7 +32,6 @@ public class BudgetController {
     }
 
     @PostMapping()
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<BudgetResponse> createBudget(@Valid @RequestBody CreateBudgetRequest request) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         BudgetResponse response = budgetService.create(request, userId);
@@ -40,7 +39,6 @@ public class BudgetController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<BudgetResponse> updateBudget(@PathVariable String id, @Valid @RequestBody UpdateBudgetRequest request) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         BudgetResponse response = budgetService.update(id, request, userId);
@@ -48,7 +46,6 @@ public class BudgetController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         budgetService.delete(id, userId);

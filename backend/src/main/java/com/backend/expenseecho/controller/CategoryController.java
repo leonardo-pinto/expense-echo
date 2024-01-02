@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequestMapping("/categories")
 public class CategoryController {
 
@@ -24,7 +25,6 @@ public class CategoryController {
     }
 
     @GetMapping()
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<CategoryResponse>> getAllByUserIdOrDefault() {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         List<CategoryResponse> response = categoryService.getAllByUserIdOrDefault(userId);
@@ -32,7 +32,6 @@ public class CategoryController {
     }
 
     @PostMapping()
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<CategoryResponse> createCategory(@Valid @RequestBody CreateCategoryRequest request) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         CategoryResponse response = categoryService.create(request, userId);
@@ -40,7 +39,6 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<CategoryResponse> updateCategory(@PathVariable String id, @Valid @RequestBody UpdateCategoryRequest request) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         CategoryResponse response = categoryService.update(id, request, userId);

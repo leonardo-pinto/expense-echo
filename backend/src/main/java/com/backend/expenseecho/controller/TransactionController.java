@@ -16,6 +16,7 @@ import java.time.YearMonth;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequestMapping("/transactions")
 public class TransactionController {
     private final TransactionService transactionService;
@@ -25,7 +26,6 @@ public class TransactionController {
     }
 
     @PostMapping()
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<TransactionResponse> create(@Valid @RequestBody CreateTransactionRequest request) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         TransactionResponse response = transactionService.create(request, userId);
@@ -33,7 +33,6 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<TransactionResponse> update(@PathVariable String id, @Valid @RequestBody UpdateTransactionRequest request) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         TransactionResponse response = transactionService.update(id, request, userId);
@@ -41,7 +40,6 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<TransactionResponse> getById(@PathVariable String id) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         TransactionResponse response = transactionService.getById(id, userId);
@@ -49,7 +47,6 @@ public class TransactionController {
     }
 
     @GetMapping("/budget/{budgetId}/date/{date}")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<TransactionResponse>> getTransactionsByBudgetAndDate(@PathVariable int budgetId, @PathVariable YearMonth date) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         List<TransactionResponse> response = transactionService.getTransactionsByDateAndBudget(date, budgetId, userId);
@@ -57,7 +54,6 @@ public class TransactionController {
     }
 
     @GetMapping("monthly-result/budget/{budgetId}/date/{date}")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<TransactionResultByDateAndTypeResponse> getResultByBudgetAndDate(@PathVariable int budgetId, @PathVariable YearMonth date) {
         String userId = (SecurityContextHolder.getContext().getAuthentication()).getName();
         TransactionResultByDateAndTypeResponse response = transactionService.getTransactionsResultByDateAndBudget(date, budgetId, userId);
