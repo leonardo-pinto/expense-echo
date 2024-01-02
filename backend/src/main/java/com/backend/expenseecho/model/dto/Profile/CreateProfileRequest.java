@@ -1,14 +1,15 @@
-package com.backend.expenseecho.model.dto;
+package com.backend.expenseecho.model.dto.Profile;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class UpdateProfileRequest {
+public class CreateProfileRequest {
+
     @NotBlank(message = "Profile name is required")
     private String name;
 
     private String avatar;
 
-    public UpdateProfileRequest(String name, String avatar) {
+    public CreateProfileRequest(String name, String avatar) {
         this.name = name;
         this.avatar = avatar;
     }

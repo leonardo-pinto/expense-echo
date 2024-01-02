@@ -1,6 +1,6 @@
 package com.backend.expenseecho.utils.mapper;
 
-import com.backend.expenseecho.model.dto.CreateProfileRequest;
+import com.backend.expenseecho.model.dto.Profile.CreateProfileRequest;
 import com.backend.expenseecho.model.entities.Profile;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

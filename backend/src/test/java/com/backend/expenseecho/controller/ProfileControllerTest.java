@@ -1,8 +1,8 @@
 package com.backend.expenseecho.controller;
 
-import com.backend.expenseecho.model.dto.CreateProfileRequest;
-import com.backend.expenseecho.model.dto.ProfileResponse;
-import com.backend.expenseecho.model.dto.UpdateProfileRequest;
+import com.backend.expenseecho.model.dto.Profile.CreateProfileRequest;
+import com.backend.expenseecho.model.dto.Profile.ProfileResponse;
+import com.backend.expenseecho.model.dto.Profile.UpdateProfileRequest;
 import com.backend.expenseecho.model.entities.Profile;
 import com.backend.expenseecho.service.ProfileService;
 import org.junit.jupiter.api.*;

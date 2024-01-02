@@ -1,12 +1,10 @@
 package com.backend.expenseecho.service;
 
-import com.backend.expenseecho.model.dto.CreateProfileRequest;
-import com.backend.expenseecho.model.dto.ProfileResponse;
-import com.backend.expenseecho.model.dto.UpdateProfileRequest;
-import com.backend.expenseecho.model.entities.Profile;
+import com.backend.expenseecho.model.dto.Profile.CreateProfileRequest;
+import com.backend.expenseecho.model.dto.Profile.ProfileResponse;
+import com.backend.expenseecho.model.dto.Profile.UpdateProfileRequest;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProfileService {
     ProfileResponse create(CreateProfileRequest request, String userId);
