@@ -1,4 +1,4 @@
-package com.backend.expenseecho.model.dto;
+package com.backend.expenseecho.model.dto.Budget;
 
 import com.backend.expenseecho.model.entities.Budget;
 

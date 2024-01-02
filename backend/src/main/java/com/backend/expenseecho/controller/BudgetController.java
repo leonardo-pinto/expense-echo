@@ -1,8 +1,8 @@
 package com.backend.expenseecho.controller;
 
-import com.backend.expenseecho.model.dto.BudgetResponse;
-import com.backend.expenseecho.model.dto.CreateBudgetRequest;
-import com.backend.expenseecho.model.dto.UpdateBudgetRequest;
+import com.backend.expenseecho.model.dto.Budget.BudgetResponse;
+import com.backend.expenseecho.model.dto.Budget.CreateBudgetRequest;
+import com.backend.expenseecho.model.dto.Budget.UpdateBudgetRequest;
 import com.backend.expenseecho.service.BudgetService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
