@@ -1,8 +1,8 @@
 package com.backend.expenseecho.controller;
 
-import com.backend.expenseecho.model.dto.CategoryResponse;
-import com.backend.expenseecho.model.dto.CreateCategoryRequest;
-import com.backend.expenseecho.model.dto.UpdateCategoryRequest;
+import com.backend.expenseecho.model.dto.Category.CategoryResponse;
+import com.backend.expenseecho.model.dto.Category.CreateCategoryRequest;
+import com.backend.expenseecho.model.dto.Category.UpdateCategoryRequest;
 import com.backend.expenseecho.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
