@@ -1,4 +1,4 @@
-package com.backend.expenseecho.model.dto;
+package com.backend.expenseecho.model.dto.Transaction;
 
 import com.backend.expenseecho.model.enums.TransactionType;
 import jakarta.persistence.EnumType;

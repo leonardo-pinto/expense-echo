@@ -1,6 +1,6 @@
 package com.backend.expenseecho.repository;
 
-import com.backend.expenseecho.model.dto.TransactionResultByDateAndType;
+import com.backend.expenseecho.model.dto.Transaction.TransactionResultByDateAndType;
 import com.backend.expenseecho.model.entities.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,7 +17,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
     List<Transaction> findByBudgetIdAndDateInterval(@Param("budgetId") int budgetId, @Param("month") int month, @Param("year") int year);
 
     // JPQL query
-    @Query("SELECT new com.backend.expenseecho.model.dto.TransactionResultByDateAndType(SUM(t.amount), t.type) " +
+    @Query("SELECT new com.backend.expenseecho.model.dto.Transaction.TransactionResultByDateAndType(SUM(t.amount), t.type) " +
             "FROM Transaction t " +
             "WHERE t.budget.id = :budgetId AND FUNCTION('MONTH', t.date) = :month AND FUNCTION('YEAR', t.date) = :year " +
             "GROUP BY t.type")

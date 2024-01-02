@@ -1,7 +1,7 @@
 package com.backend.expenseecho.utils.mapper;
 
-import com.backend.expenseecho.model.dto.CreateTransactionRequest;
-import com.backend.expenseecho.model.dto.TransactionResponse;
+import com.backend.expenseecho.model.dto.Transaction.CreateTransactionRequest;
+import com.backend.expenseecho.model.dto.Transaction.TransactionResponse;
 import com.backend.expenseecho.model.entities.Transaction;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

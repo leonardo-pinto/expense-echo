@@ -1,9 +1,9 @@
 package com.backend.expenseecho.service;
 
-import com.backend.expenseecho.model.dto.CreateTransactionRequest;
-import com.backend.expenseecho.model.dto.TransactionResponse;
-import com.backend.expenseecho.model.dto.TransactionResultByDateAndTypeResponse;
-import com.backend.expenseecho.model.dto.UpdateTransactionRequest;
+import com.backend.expenseecho.model.dto.Transaction.CreateTransactionRequest;
+import com.backend.expenseecho.model.dto.Transaction.TransactionResponse;
+import com.backend.expenseecho.model.dto.Transaction.TransactionResultByDateAndTypeResponse;
+import com.backend.expenseecho.model.dto.Transaction.UpdateTransactionRequest;
 
 import java.time.YearMonth;
 import java.util.List;

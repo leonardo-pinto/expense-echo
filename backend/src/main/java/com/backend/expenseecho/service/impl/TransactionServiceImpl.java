@@ -2,7 +2,7 @@ package com.backend.expenseecho.service.impl;
 
 import com.backend.expenseecho.exception.ResourceNotFoundException;
 import com.backend.expenseecho.exception.UnauthorizedException;
-import com.backend.expenseecho.model.dto.*;
+import com.backend.expenseecho.model.dto.Transaction.*;
 import com.backend.expenseecho.model.entities.Budget;
 import com.backend.expenseecho.model.entities.Category;
 import com.backend.expenseecho.model.entities.Profile;
