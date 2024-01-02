@@ -1,4 +1,6 @@
-package com.backend.expenseecho.model.dto;
+package com.backend.expenseecho.model.dto.Error;
+
+import com.backend.expenseecho.model.dto.Error.ApiSubError;
 
 public class ApiValidationError extends ApiSubError {
     private String message;
