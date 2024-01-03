@@ -1,0 +1,24 @@
+name: Backend Development
+
+on:
+  push:
+    branches-ignore:
+      - "main"
+
+jobs:
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+      - name: Maven Package
+        run: mvn -B clean package -DskipTests
+      - name: Maven Verify
+        run: mvn -B clean verify
