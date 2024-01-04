@@ -28,6 +28,12 @@ jobs:
       - name: Maven Verify
         run: mvn -B clean verify
 
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: deploy-artifact
+          path: ./backend/target
+
   publish-image:
     name: Publish app image to DockerHub
     needs: [build-test]
@@ -38,6 +44,11 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
+
+      - name: Download deploy artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: deploy-artifact
 
       # - name: Set up Java
       #   uses: actions/setup-java@v4
