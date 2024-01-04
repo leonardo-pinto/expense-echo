@@ -12,6 +12,10 @@ jobs:
     defaults:
       run:
         working-directory: ./backend
+    env:
+      DB_CONNECTION_URL: ${{ secrets.DB_CONNECTION_URL }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
