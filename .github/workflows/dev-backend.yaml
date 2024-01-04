@@ -49,6 +49,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: deploy-artifact
+          path: ./backend
 
       # - name: Set up Java
       #   uses: actions/setup-java@v4
