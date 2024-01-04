@@ -46,9 +46,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Download deploy artifact
-          uses: actions/download-artifact@v3
-          with:
-            name: deploy-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: deploy-artifact
 
       # - name: Set up Java
       #   uses: actions/setup-java@v4
