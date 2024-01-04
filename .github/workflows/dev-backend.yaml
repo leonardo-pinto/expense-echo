@@ -18,9 +18,9 @@ jobs:
 
       - name: Set up Java
         uses: actions/setup-java@v4
-          with:
-            java-version: "17"
-            distribution: "temurin"
+        with:
+          java-version: "17"
+          distribution: "temurin"
 
       - name: Maven Package
         run: mvn -B clean package -DskipTests
@@ -64,9 +64,9 @@ jobs:
 
       - name: Set up Java
         uses: actions/setup-java@v4
-          with:
-            java-version: "17"
-            distribution: "temurin"
+        with:
+          java-version: "17"
+          distribution: "temurin"
 
       # - name: Download artifacts
       #   uses: actions/download-artifact@v2
