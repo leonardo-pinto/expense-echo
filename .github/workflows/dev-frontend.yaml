@@ -50,7 +50,7 @@ jobs:
         working-directory: ./frontend
     steps:
       - name: Download production artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: deploy-artifact
           path: ./frontend/build
@@ -62,4 +62,4 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: Deploy to S3
         run: aws s3 sync . s3://expense-echo-app --acl public-read
-        working-directory: ./frontend/dist
+        working-directory: frontend/dist
