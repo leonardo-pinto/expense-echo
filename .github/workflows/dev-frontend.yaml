@@ -40,7 +40,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: deploy-artifact
-          path: ./frontend/build
+          path: ./frontend/dist
 
   deploy:
     runs-on: ubuntu-latest
@@ -62,4 +62,4 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: Deploy to S3
         run: aws s3 sync . s3://expense-echo-app --acl public-read
-        working-directory: ./frontend/build
+        working-directory: ./frontend/dist
