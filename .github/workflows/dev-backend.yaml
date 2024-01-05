@@ -2,6 +2,8 @@ name: Backend Development
 
 on:
   push:
+    paths:
+      - "backend/**"
     branches-ignore:
       - "main"
 
