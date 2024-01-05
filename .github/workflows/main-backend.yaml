@@ -2,6 +2,8 @@ name: Backend Production
 
 on:
   push:
+    paths:
+      - "backend/**"
     branches: "main"
 
 jobs:
