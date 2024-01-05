@@ -1,0 +1,38 @@
+name: Frontend Development
+
+on:
+  push:
+    paths:
+      - "frontend/**"
+    branches-ignore:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Prettier
+        run: npm run prettier
+
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Build app
+        run: npm run build
