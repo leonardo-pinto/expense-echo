@@ -53,7 +53,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: deploy-artifact
-          path: ./frontend/build
+          path: ./frontend/dist
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
