@@ -2,8 +2,8 @@ name: Frontend Development
 
 on:
   push:
-    paths:
-      - "frontend/**"
+    # paths:
+    #   - "frontend/**"
     branches-ignore:
       - "main"
 
