@@ -1,3 +1,10 @@
+import { Layout } from '../components/Layout';
+import { RegisterForm } from '../components/RegisterForm';
+
 export const Register = () => {
-  return <h1>Register</h1>;
+  return (
+    <Layout title="Register a new account">
+      <RegisterForm />
+    </Layout>
+  );
 };
