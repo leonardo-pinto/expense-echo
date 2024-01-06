@@ -42,6 +42,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
+                .cors(AbstractHttpConfigurer::disable)
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
